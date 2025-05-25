@@ -372,15 +372,16 @@ h3 {
 }
 
 .detail-text::before {
-  content: "💬";
+  content: "\f10d";
   position: absolute;
   top: -12px;
   left: -12px;
+  font-family: "Font Awesome 6 Free";
   font-size: 1rem;
   font-weight: bold;
   background-color: #3498db;
   color: white;
-  padding: 6px 8px;
+  padding: 6px 10px;
   border-radius: 50%;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
