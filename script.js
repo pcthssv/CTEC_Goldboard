@@ -3,6 +3,10 @@ document.addEventListener("DOMContentLoaded", () => {
   loadStudents();
 });
 
+function saveScrollPosition() {
+  localStorage.setItem("scrollPos", window.scrollY);
+}
+
 // Hàm tải danh sách sinh viên
 async function loadStudents() {
   try {
@@ -29,7 +33,7 @@ function displayStudents(students) {
         <div class="card-content">
           <h3>${sv.name}</h3>
           <p>Lớp: ${sv.class}</p>
-          <a href="detail.html?id=${sv.id}">Xem chi tiết</a>
+          <a href="detail.html?id=${sv.id}" onclick="saveScrollPosition()">Xem thông tin</a>
         </div>
       </div>
     `
@@ -63,9 +67,8 @@ async function loadStudentDetail() {
         </div>
           <div class="detail-card">
             <div class="image-wrapper">
-                <img src="Image/${sv.image}" alt="${
-      sv.name
-    }" onerror="this.src='https://via.placeholder.com/400'">
+                <img src="Image/${sv.image}" alt="${sv.name
+      }" onerror="this.src='https://via.placeholder.com/400'">
                 <img src="Image/crown.png" alt="Crown" class="crown-icon">
             </div>
             <div class="detail-content">
@@ -73,12 +76,10 @@ async function loadStudentDetail() {
               <p class="detail-class"><span>Lớp: ${sv.class}</span></p>
               <p class="detail-major"><span>Ngành: ${sv.major}</span></p>
               <p class="detail-faculty"><span>Khoa: ${sv.faculty}</span></p>
-              <p class="detail-score"><span>Điểm trung bình học kỳ: ${
-                sv.score
-              }</span></p>
-              <p class="detail-practice"><span>Điểm rèn luyện học kỳ: ${
-                sv.practice
-              }</span></p>
+              <p class="detail-score"><span>Điểm trung bình học kỳ: ${sv.score
+      }</span></p>
+              <p class="detail-practice"><span>Điểm rèn luyện học kỳ: ${sv.practice
+      }</span></p>
             </div>
           </div>
       
@@ -90,6 +91,7 @@ async function loadStudentDetail() {
       "Không thể tải thông tin sinh viên";
   }
 }
+
 
 function launchConfetti() {
   for (let i = 0; i < 10; i++) {
@@ -112,6 +114,21 @@ function launchConfetti() {
     setTimeout(() => confetti.remove(), 6000);
   }
 }
+
+fetch("https://script.google.com/macros/s/AKfycby5mgcTppXUNVgTR2fL67iLv-yPJZMahPz11WBruUC17EcP0yqkBjf6KmgjAiSK8Sn5/exec")
+  .then((res) => res.json())
+  .then((data) => {
+    displayStudents(data);
+
+    const savedPos = localStorage.getItem("scrollPos");
+    if (savedPos !== null) {
+      setTimeout(() => {
+        window.scrollTo(0, parseInt(savedPos));
+        localStorage.removeItem("scrollPos");
+      }, 100);
+    }
+  });
+
 
 window.addEventListener("DOMContentLoaded", () => {
   setInterval(launchConfetti, 500);
