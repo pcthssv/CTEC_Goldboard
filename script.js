@@ -93,27 +93,50 @@ async function loadStudentDetail() {
 }
 
 
+// function launchConfetti() {
+//   for (let i = 0; i < 10; i++) {
+//     const confetti = document.createElement("div");
+//     confetti.classList.add("confetti");
+//     document.body.appendChild(confetti);
+
+//     const size = Math.random() * 8 + 4; // Kích thước ngẫu nhiên
+//     confetti.style.width = `${size}px`;
+//     confetti.style.height = `${size}px`;
+//     confetti.style.left = `${Math.random() * 100}%`;
+
+//     confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 60%)`;
+
+//     // Animation ngẫu nhiên
+//     confetti.style.animationDuration = `${Math.random() * 2 + 3}s`;
+//     confetti.style.animationDelay = `0s`;
+
+//     // Loại bỏ sau khi kết thúc
+//     setTimeout(() => confetti.remove(), 6000);
+//   }
+// }
+
 function launchConfetti() {
   for (let i = 0; i < 10; i++) {
     const confetti = document.createElement("div");
     confetti.classList.add("confetti");
     document.body.appendChild(confetti);
 
-    const size = Math.random() * 8 + 4; // Kích thước ngẫu nhiên
+    // Loại ngẫu nhiên: cong hoặc vuông
+    const type = Math.random() > 0.5 ? "curve" : "square";
+    confetti.classList.add(type);
+
+    const size = Math.random() * 12 + 6;
     confetti.style.width = `${size}px`;
     confetti.style.height = `${size}px`;
     confetti.style.left = `${Math.random() * 100}%`;
 
-    confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 60%)`;
-
-    // Animation ngẫu nhiên
     confetti.style.animationDuration = `${Math.random() * 2 + 3}s`;
     confetti.style.animationDelay = `0s`;
 
-    // Loại bỏ sau khi kết thúc
     setTimeout(() => confetti.remove(), 6000);
   }
 }
+
 
 fetch("https://script.google.com/macros/s/AKfycby5mgcTppXUNVgTR2fL67iLv-yPJZMahPz11WBruUC17EcP0yqkBjf6KmgjAiSK8Sn5/exec")
   .then((res) => res.json())
